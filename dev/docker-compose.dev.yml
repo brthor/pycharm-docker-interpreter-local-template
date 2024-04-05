@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  dev-interpreter:
+    build:
+      context: ../
+      dockerfile: ./dev/Dockerfile.dev
+    container_name: ${DEV_CONTAINER_BASE_NAME}-interpreter-sshd
+    volumes:
+      - ../:/app
+    shm_size: 1g
+    ports:
+      - "127.0.0.1:${LOCAL_DOCKER_SSH_PORT}:22"

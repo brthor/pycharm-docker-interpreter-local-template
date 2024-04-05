@@ -1,0 +1,47 @@
+PermitEmptyPasswords no
+PermitUserEnvironment no
+HostbasedAuthentication no
+RhostsAuthentication no
+Ciphers aes256-ctr,aes256-cbc
+MACs hmac-sha2-256,hmac-sha2-512
+ClientAliveInterval 180
+ClientAliveCountMax 2
+PrintLastLog yes
+PermitRootLogin yes
+IgnoreUserKnownHosts yes
+IgnoreRhosts yes
+X11Forwarding no
+UsePrivilegeSeparation yes
+Compression delayed
+Banner /etc/motd
+
+AllowTcpForwarding yes
+GatewayPorts no
+
+StrictModes yes
+LoginGraceTime 15
+
+# Password based logins are disabled - only public key based logins are allowed.
+AuthenticationMethods publickey
+KerberosAuthentication no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+GSSAPIAuthentication no
+HostbasedAuthentication no
+PubkeyAuthentication yes
+
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+
+# AllowUsers core
+PrintLastLog yes
+
+# Restrict to ipv4
+AddressFamily inet
+
+UseDNS no
+UsePAM yes
+PrintMotd no
+PrintLastLog no
+# ShowPatchLevel no
+Subsystem sftp internal-sftp

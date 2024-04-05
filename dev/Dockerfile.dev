@@ -1,0 +1,39 @@
+FROM python:3.10-slim-bullseye
+
+RUN apt update && apt install -qqy bash git openssh-server sudo python3-dev build-essential openssh-client \
+  rsync inotify-tools ninja-build vim nano
+
+# SSHD SETUP
+RUN rm -f /etc/ssh/ssh_host_* && ssh-keygen -A
+
+COPY ./dev/sshd/dev_sshd_config /etc/ssh/sshd_config
+RUN mkdir /run/sshd
+
+WORKDIR /root
+
+COPY ./dev/sshd/dev-sshd.pem.pub /root/ssh_pub_key
+RUN mkdir -p /root/.ssh \
+    && cat /root/ssh_pub_key >> /root/.ssh/authorized_keys \
+    && rm /root/ssh_pub_key
+
+# NEW USER
+
+RUN groupadd -r -g 1000 user
+RUN useradd --create-home -r -u 1000 -g 1000 user
+
+RUN mkdir /app
+RUN chown -R 1000:1000 /app
+WORKDIR /app
+
+# fix the python3 path to be compatible with pycharm configuration
+RUN ln -sf "$(which python3)" /usr/bin/python3
+RUN ln -sf "$(which python3)" /usr/bin/python
+
+# INSTALL REQUIREMENTS
+RUN pip3 install -U pip
+
+COPY ./requirements.txt ./requirements.txt
+RUN pip3 install -r ./requirements.txt
+
+USER root
+CMD /usr/sbin/sshd -D
