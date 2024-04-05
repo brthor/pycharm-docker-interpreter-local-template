@@ -1,5 +1,5 @@
 
-# Python Local Docker Interpreter Project Template
+# PyCharm Local Docker Interpreter Project Template
 
 This template can be copied to create a project that uses docker for its local interpreter, avoiding the need for 
 endless `venv` directories and installing packages to your local dev system.
