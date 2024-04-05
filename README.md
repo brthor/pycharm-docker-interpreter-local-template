@@ -6,6 +6,8 @@ endless `venv` directories and installing packages to your local dev system.
 
 **Use of this repo requires PyCharm Professional** because the community version does not support SSH interpreters.
 
+With this template you get full debugging support and PyCharm behaves as if you were using a local `venv` interpreter.
+
 ### Dev Setup
 
 1. Go to `./dev/vars.sh` and adjust the `LOCAL_DOCKER_SSH_PORT` variable so that this project's ssh port does not 
@@ -56,5 +58,5 @@ endless `venv` directories and installing packages to your local dev system.
 This script is used to execute arbitrary commands inside a separate dev environment container. For example 
 `./dev/d-exec.sh python3 -m main` would execute the script `main.py` located at the repo root.
 
-Usually you would use PyCharm 
+In most cases you would instead use a PyCharm run configuration to run your code inside the main interpreter container. 
 
